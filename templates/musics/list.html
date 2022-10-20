@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="{% static 'css/music.css' %}">
+    </head>
+    <body>
+        {% for music in musics %}
+            {% if music.image %}
+                <div class="container">
+                    <hr> <br>
+                    <img src="{{ music.image.url }}" class="card-img-top image" alt="...">
+
+                    <center>
+                        <audio src="{{ music.audio.url }}" controls>
+                            <p>If you are reading this, it is because your browser does not support the audio element.</p>
+                        </audio>
+                    </center>
+
+                    <p id="sing-name" style="position: relative; right: 1px;">
+                        {{ music.siger }} -
+                        {{ music.name }}</p>
+
+                    <a href="{{ music.audio.url }}" download="{{ music.audio.url }}" style="position: relative; top: -60px">
+                        <img src="{% static 'images/download.ico' %}" alt="" class="image" id="music__icon">
+                    </a>
+                    <br>
+                    <b style="position: relative; top: -30px">{% trans "Author" %}: {{ music.user }}</b>
+                    <hr style="position: relative; top: -30px">
+                </div>
+            {% endif %}
+        {% endfor %}
+    </body>
+    </html>
+
+{% endblock content %}
